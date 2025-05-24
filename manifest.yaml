@@ -1,0 +1,57 @@
+version: 0.0.1
+type: plugin
+author: xiaochuan886
+name: sider_chat
+label:
+  en_US: Sider AI Chat
+  ja_JP: Sider AI チャット
+  zh_Hans: Sider AI 聊天助手
+  pt_BR: Chat Sider AI
+description:
+  en_US: A powerful AI chat plugin that provides streaming responses with context management, supporting multiple AI models including GPT, Claude, and Gemini.
+  ja_JP: GPT、Claude、Geminiなどの複数のAIモデルをサポートし、コンテキスト管理とストリーミング応答を提供する強力なAIチャットプラグイン。
+  zh_Hans: 强大的AI聊天插件，提供流式响应和上下文管理，支持GPT、Claude、Gemini等多种AI模型。
+  pt_BR: Um plugin de chat AI poderoso que fornece respostas em streaming com gerenciamento de contexto, suportando múltiplos modelos de IA incluindo GPT, Claude e Gemini.
+icon: icon.svg
+tags:
+  - productivity
+  - utilities
+resource:
+  memory: 268435456
+  permission:
+    tool:
+      enabled: true
+    model:
+      enabled: false
+      llm: false
+      text_embedding: false
+      rerank: false
+      tts: false
+      speech2text: false
+      moderation: false
+    node:
+      enabled: false
+    endpoint:
+      enabled: false
+    app:
+      enabled: false
+    storage:
+      enabled: true
+      size: 1048576
+plugins:
+  tools:
+    - provider/sider_chat.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+  minimum_dify_version: 0.0.1
+created_at: 2025-05-24T22:40:32.610367+08:00
+privacy: PRIVACY.md
+repo: https://github.com/xiaochuan886/sider_chat
+verified: false

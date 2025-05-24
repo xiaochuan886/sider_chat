@@ -1,0 +1,327 @@
+identity:
+  name: sider_chat
+  author: sider-ai-team
+  label:
+    en_US: Sider AI Chat
+    zh_Hans: Sider AI 聊天
+    pt_BR: Chat Sider AI
+    ja_JP: Sider AI チャット
+description:
+  human:
+    en_US: A powerful AI chat tool that provides streaming responses with context management. Supports multiple AI models including GPT-4, Claude, and Gemini. Input should be a prompt message and optionally a context ID for conversation continuity.
+    zh_Hans: 强大的AI聊天工具，提供流式响应和上下文管理。支持GPT-4、Claude、Gemini等多种AI模型。输入应为提示消息，可选择提供上下文ID以保持对话连续性。
+    pt_BR: Uma ferramenta de chat AI poderosa que fornece respostas em streaming com gerenciamento de contexto. Suporta múltiplos modelos de IA incluindo GPT-4, Claude e Gemini. A entrada deve ser uma mensagem de prompt e opcionalmente um ID de contexto para continuidade da conversa.
+    ja_JP: コンテキスト管理を備えたストリーミング応答を提供する強力なAIチャットツール。GPT-4、Claude、Geminiを含む複数のAIモデルをサポート。プロンプトメッセージと、会話の継続性のためのオプションのコンテキストIDを入力する必要があります。
+  llm: A tool for AI chat with streaming responses and context management. Input a prompt message and optionally a context_id for conversation continuity. Returns AI response and updated context_id.
+
+parameters:
+  - name: prompt
+    type: string
+    required: true
+    label:
+      en_US: Prompt
+      zh_Hans: 提示词
+      pt_BR: Prompt
+      ja_JP: プロンプト
+    human_description:
+      en_US: The message or question you want to send to the AI
+      zh_Hans: 您想要发送给AI的消息或问题
+      pt_BR: A mensagem ou pergunta que você quer enviar para a IA
+      ja_JP: AIに送信したいメッセージまたは質問
+    llm_description: The user's input message or question for the AI to respond to
+    form: llm
+
+  - name: context_id
+    type: string
+    required: false
+    label:
+      en_US: Context ID
+      zh_Hans: 上下文ID
+      pt_BR: ID do Contexto
+      ja_JP: コンテキストID
+    human_description:
+      en_US: Optional context ID for conversation continuity. Leave empty to start a new conversation.
+      zh_Hans: 可选的上下文ID用于保持对话连续性。留空以开始新对话。
+      pt_BR: ID de contexto opcional para continuidade da conversa. Deixe vazio para iniciar uma nova conversa.
+      ja_JP: 会話の継続性のためのオプションのコンテキストID。新しい会話を開始するには空のままにしてください。
+    llm_description: Optional context ID to maintain conversation history. Use the context_id from previous responses to continue the conversation.
+    form: form
+    default: ""
+
+  - name: model
+    type: select
+    required: false
+    label:
+      en_US: AI Model
+      zh_Hans: AI模型
+      pt_BR: Modelo de IA
+      ja_JP: AIモデル
+    human_description:
+      en_US: Select the AI model to use for the conversation
+      zh_Hans: 选择用于对话的AI模型
+      pt_BR: Selecione o modelo de IA para usar na conversa
+      ja_JP: 会話に使用するAIモデルを選択
+    llm_description: The AI model to use for generating responses
+    form: form
+    default: "sider"
+    options:
+      # 基础模型
+      - value: "sider"
+        label:
+          en_US: "Sider (Default)"
+          zh_Hans: "Sider（默认）"
+          pt_BR: "Sider (Padrão)"
+          ja_JP: "Sider（デフォルト）"
+      
+      # 新一代GPT模型
+      - value: "gpt-4.1"
+        label:
+          en_US: "GPT-4.1"
+          zh_Hans: "GPT-4.1"
+          pt_BR: "GPT-4.1"
+          ja_JP: "GPT-4.1"
+      - value: "gpt-4.1-mini"
+        label:
+          en_US: "GPT-4.1 Mini"
+          zh_Hans: "GPT-4.1 Mini"
+          pt_BR: "GPT-4.1 Mini"
+          ja_JP: "GPT-4.1 Mini"
+      
+      # Claude 4 系列
+      - value: "claude-4-sonnet"
+        label:
+          en_US: "Claude 4 Sonnet"
+          zh_Hans: "Claude 4 Sonnet"
+          pt_BR: "Claude 4 Sonnet"
+          ja_JP: "Claude 4 Sonnet"
+      - value: "claude-4-opus"
+        label:
+          en_US: "Claude 4 Opus"
+          zh_Hans: "Claude 4 Opus"
+          pt_BR: "Claude 4 Opus"
+          ja_JP: "Claude 4 Opus"
+      - value: "claude-4-sonnet-think"
+        label:
+          en_US: "Claude 4 Sonnet (Thinking)"
+          zh_Hans: "Claude 4 Sonnet（思考模式）"
+          pt_BR: "Claude 4 Sonnet (Pensamento)"
+          ja_JP: "Claude 4 Sonnet（思考モード）"
+      - value: "claude-4-opus-think"
+        label:
+          en_US: "Claude 4 Opus (Thinking)"
+          zh_Hans: "Claude 4 Opus（思考模式）"
+          pt_BR: "Claude 4 Opus (Pensamento)"
+          ja_JP: "Claude 4 Opus（思考モード）"
+      - value: "claude-3.5-haiku"
+        label:
+          en_US: "Claude 3.5 Haiku"
+          zh_Hans: "Claude 3.5 Haiku"
+          pt_BR: "Claude 3.5 Haiku"
+          ja_JP: "Claude 3.5 Haiku"
+      
+      # Gemini 2.5 系列
+      - value: "gemini-2.5-flash"
+        label:
+          en_US: "Gemini 2.5 Flash"
+          zh_Hans: "Gemini 2.5 Flash"
+          pt_BR: "Gemini 2.5 Flash"
+          ja_JP: "Gemini 2.5 Flash"
+      - value: "gemini-2.5-pro"
+        label:
+          en_US: "Gemini 2.5 Pro"
+          zh_Hans: "Gemini 2.5 Pro"
+          pt_BR: "Gemini 2.5 Pro"
+          ja_JP: "Gemini 2.5 Pro"
+      - value: "gemini-2.5-flash-think"
+        label:
+          en_US: "Gemini 2.5 Flash (Thinking)"
+          zh_Hans: "Gemini 2.5 Flash（思考模式）"
+          pt_BR: "Gemini 2.5 Flash (Pensamento)"
+          ja_JP: "Gemini 2.5 Flash（思考モード）"
+      - value: "gemini-2.5-pro-think"
+        label:
+          en_US: "Gemini 2.5 Pro (Thinking)"
+          zh_Hans: "Gemini 2.5 Pro（思考模式）"
+          pt_BR: "Gemini 2.5 Pro (Pensamento)"
+          ja_JP: "Gemini 2.5 Pro（思考モード）"
+      
+      # O系列模型
+      - value: "o3"
+        label:
+          en_US: "O3"
+          zh_Hans: "O3"
+          pt_BR: "O3"
+          ja_JP: "O3"
+      - value: "o4-mini"
+        label:
+          en_US: "O4 Mini"
+          zh_Hans: "O4 Mini"
+          pt_BR: "O4 Mini"
+          ja_JP: "O4 Mini"
+      
+      # DeepSeek系列
+      - value: "deepseek-chat"
+        label:
+          en_US: "DeepSeek Chat"
+          zh_Hans: "DeepSeek Chat"
+          pt_BR: "DeepSeek Chat"
+          ja_JP: "DeepSeek Chat"
+      - value: "deepseek-reasoner"
+        label:
+          en_US: "DeepSeek Reasoner"
+          zh_Hans: "DeepSeek Reasoner"
+          pt_BR: "DeepSeek Reasoner"
+          ja_JP: "DeepSeek Reasoner"
+      - value: "deepseek-r1-distill-llama-70b"
+        label:
+          en_US: "DeepSeek R1 Distill Llama 70B"
+          zh_Hans: "DeepSeek R1 Distill Llama 70B"
+          pt_BR: "DeepSeek R1 Distill Llama 70B"
+          ja_JP: "DeepSeek R1 Distill Llama 70B"
+
+  - name: output_lang
+    type: select
+    required: false
+    label:
+      en_US: Output Language
+      zh_Hans: 输出语言
+      pt_BR: Idioma de Saída
+      ja_JP: 出力言語
+    human_description:
+      en_US: Preferred language for AI responses
+      zh_Hans: AI响应的首选语言
+      pt_BR: Idioma preferido para respostas da IA
+      ja_JP: AI応答の優先言語
+    llm_description: The preferred language for AI responses
+    form: form
+    default: "auto"
+    options:
+      - value: "auto"
+        label:
+          en_US: "Auto (Follow Input)"
+          zh_Hans: "自动（跟随输入）"
+          pt_BR: "Automático (Seguir Entrada)"
+          ja_JP: "自動（入力に従う）"
+      - value: "zh-CN"
+        label:
+          en_US: "Chinese (Simplified)"
+          zh_Hans: "中文（简体）"
+          pt_BR: "Chinês (Simplificado)"
+          ja_JP: "中国語（簡体字）"
+      - value: "en"
+        label:
+          en_US: "English"
+          zh_Hans: "英语"
+          pt_BR: "Inglês"
+          ja_JP: "英語"
+      - value: "ja"
+        label:
+          en_US: "Japanese"
+          zh_Hans: "日语"
+          pt_BR: "Japonês"
+          ja_JP: "日本語"
+
+  - name: thinking_mode
+    type: boolean
+    required: false
+    label:
+      en_US: Thinking Mode
+      zh_Hans: 思考模式
+      pt_BR: Modo de Pensamento
+      ja_JP: 思考モード
+    human_description:
+      en_US: Enable AI thinking mode for more detailed reasoning
+      zh_Hans: 启用AI思考模式以获得更详细的推理
+      pt_BR: Ativar modo de pensamento da IA para raciocínio mais detalhado
+      ja_JP: より詳細な推論のためにAI思考モードを有効にする
+    llm_description: Whether to enable thinking mode for more detailed AI reasoning
+    form: form
+    default: false
+
+  - name: data_analysis
+    type: boolean
+    required: false
+    label:
+      en_US: Data Analysis
+      zh_Hans: 数据分析
+      pt_BR: Análise de Dados
+      ja_JP: データ分析
+    human_description:
+      en_US: Enable data analysis capabilities
+      zh_Hans: 启用数据分析功能
+      pt_BR: Ativar capacidades de análise de dados
+      ja_JP: データ分析機能を有効にする
+    llm_description: Whether to enable data analysis capabilities
+    form: form
+    default: true
+
+  - name: search
+    type: boolean
+    required: false
+    label:
+      en_US: Web Search
+      zh_Hans: 网络搜索
+      pt_BR: Busca na Web
+      ja_JP: ウェブ検索
+    human_description:
+      en_US: Enable web search for up-to-date information
+      zh_Hans: 启用网络搜索以获取最新信息
+      pt_BR: Ativar busca na web para informações atualizadas
+      ja_JP: 最新情報のためのウェブ検索を有効にする
+    llm_description: Whether to enable web search for current information
+    form: form
+    default: false
+
+# 定义输出变量，让后续节点可以访问
+outputs:
+  - name: context_id
+    type: string
+    description:
+      en_US: The context ID for conversation continuity
+      zh_Hans: 用于对话连续性的上下文ID
+      pt_BR: O ID do contexto para continuidade da conversa
+      ja_JP: 会話の継続性のためのコンテキストID
+  
+  - name: model
+    type: string
+    description:
+      en_US: The AI model used for this conversation
+      zh_Hans: 此次对话使用的AI模型
+      pt_BR: O modelo de IA usado para esta conversa
+      ja_JP: この会話に使用されたAIモデル
+  
+  - name: response
+    type: string
+    description:
+      en_US: The AI's response content
+      zh_Hans: AI的响应内容
+      pt_BR: O conteúdo da resposta da IA
+      ja_JP: AIの応答内容
+  
+  - name: success
+    type: boolean
+    description:
+      en_US: Whether the chat was successful
+      zh_Hans: 聊天是否成功
+      pt_BR: Se o chat foi bem-sucedido
+      ja_JP: チャットが成功したかどうか
+  
+  - name: prompt_length
+    type: number
+    description:
+      en_US: Length of the input prompt
+      zh_Hans: 输入提示词的长度
+      pt_BR: Comprimento do prompt de entrada
+      ja_JP: 入力プロンプトの長さ
+  
+  - name: response_length
+    type: number
+    description:
+      en_US: Length of the AI response
+      zh_Hans: AI响应的长度
+      pt_BR: Comprimento da resposta da IA
+      ja_JP: AI応答の長さ
+
+extra:
+  python:
+    source: tools/sider_chat.py

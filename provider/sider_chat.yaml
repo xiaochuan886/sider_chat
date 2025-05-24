@@ -1,0 +1,64 @@
+identity:
+  author: xiaochuan886
+  name: sider_chat
+  label:
+    en_US: Sider AI
+    zh_Hans: Sider AI
+    pt_BR: Sider AI
+    ja_JP: Sider AI
+  description:
+    en_US: Sider AI provides access to multiple AI models including GPT, Claude, and Gemini with advanced features like context management and streaming responses.
+    zh_Hans: Sider AI 提供多种AI模型访问，包括GPT、Claude和Gemini，具备上下文管理和流式响应等高级功能。
+    pt_BR: Sider AI fornece acesso a múltiplos modelos de IA incluindo GPT, Claude e Gemini com recursos avançados como gerenciamento de contexto e respostas em streaming.
+    ja_JP: Sider AIは、コンテキスト管理やストリーミング応答などの高度な機能を備えた、GPT、Claude、Geminiを含む複数のAIモデルへのアクセスを提供します。
+  icon: icon.svg
+  tags:
+    - productivity
+    - utilities
+
+credentials_for_provider:
+  sider_token:
+    type: secret-input
+    required: true
+    label:
+      en_US: Sider Token
+      zh_Hans: Sider 令牌
+      pt_BR: Token Sider
+      ja_JP: Sider トークン
+    placeholder:
+      en_US: Please input your Sider token
+      zh_Hans: 请输入您的 Sider 令牌
+      pt_BR: Por favor, insira seu token Sider
+      ja_JP: Sider トークンを入力してください
+    help:
+      en_US: Get your Sider token from sider.ai account settings
+      zh_Hans: 从 sider.ai 账户设置中获取您的 Sider 令牌
+      pt_BR: Obtenha seu token Sider nas configurações da conta sider.ai
+      ja_JP: sider.ai のアカウント設定から Sider トークンを取得してください
+    url: https://sider.ai
+  
+  sider_cookie:
+    type: secret-input
+    required: true
+    label:
+      en_US: Sider Cookie
+      zh_Hans: Sider Cookie
+      pt_BR: Cookie Sider
+      ja_JP: Sider Cookie
+    placeholder:
+      en_US: Please input your Sider cookie
+      zh_Hans: 请输入您的 Sider cookie
+      pt_BR: Por favor, insira seu cookie Sider
+      ja_JP: Sider cookie を入力してください
+    help:
+      en_US: Get your Sider cookie from browser developer tools when logged into sider.ai
+      zh_Hans: 登录 sider.ai 后从浏览器开发者工具中获取 Sider cookie
+      pt_BR: Obtenha seu cookie Sider das ferramentas de desenvolvedor do navegador quando logado em sider.ai
+      ja_JP: sider.ai にログインした状態でブラウザの開発者ツールから Sider cookie を取得してください
+
+tools:
+  - tools/sider_chat.yaml
+
+extra:
+  python:
+    source: provider/sider_chat.py
