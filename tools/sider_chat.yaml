@@ -270,22 +270,22 @@ parameters:
     form: form
     default: false
 
-  - name: data_analysis
-    type: boolean
-    required: false
-    label:
-      en_US: Data Analysis
-      zh_Hans: 数据分析
-      pt_BR: Análise de Dados
-      ja_JP: データ分析
-    human_description:
-      en_US: Enable data analysis capabilities
-      zh_Hans: 启用数据分析功能
-      pt_BR: Ativar capacidades de análise de dados
-      ja_JP: データ分析機能を有効にする
-    llm_description: Whether to enable data analysis capabilities
-    form: form
-    default: true
+  # - name: data_analysis
+  #   type: boolean
+  #   required: false
+  #   label:
+  #     en_US: Data Analysis
+  #     zh_Hans: 数据分析
+  #     pt_BR: Análise de Dados
+  #     ja_JP: データ分析
+  #   human_description:
+  #     en_US: Enable data analysis capabilities
+  #     zh_Hans: 启用数据分析功能
+  #     pt_BR: Ativar capacidades de análise de dados
+  #     ja_JP: データ分析機能を有効にする
+  #   llm_description: Whether to enable data analysis capabilities
+  #   form: form
+  #   default: true
 
   - name: search
     type: boolean
