@@ -45,12 +45,14 @@ token可以在浏览器的设置或者开发者工具中查看。对于Edge，co
 
 ### 3. 使用插件
 在Dify应用中添加"Sider AI Chat"工具节点，配置以下参数：
+- **Sider 令牌** (必需): Sider Token
+- **Sider Cookie** (必需): Sider Cookie
 - **prompt** (必需): 发送给AI的消息或问题
-- **context_id** (可选): 用于保持对话连续性的上下文ID
+- **context_id** (可选): 用于保持对话连续性的上下文ID（可以从上一个对话中获取）
 - **model** (可选): 选择使用的AI模型，默认为"sider"
 - **output_lang** (可选): 输出语言偏好，默认为"auto"
 - **thinking_mode** (可选): 是否启用思考模式，默认为false
-- **data_analysis** (可选): 是否启用数据分析，默认为true
+- **data_analysis** (可选): 是否启用数据分析，默认为true(暂时无法使用)
 - **search** (可选): 是否启用网络搜索，默认为false
 
 ## Usage Examples
@@ -70,13 +72,7 @@ model: "claude-4-sonnet"
 thinking_mode: true
 ```
 
-### 数据分析任务
-```yaml
-prompt: "分析这组销售数据的趋势"
-model: "deepseek-reasoner"
-data_analysis: true
-search: false
-```
+
 
 ## Output Variables
 
