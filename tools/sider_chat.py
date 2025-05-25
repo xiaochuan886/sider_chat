@@ -111,7 +111,7 @@ class SiderChatTool(Tool):
                 final_context_id = client.get_last_context_id()
             
             # 发送完成提示
-            yield self.create_text_message(f"\n\n✅ 聊天完成")
+            yield self.create_text_message(f"\n\n")
             
             # 构建结果数据 - 使用标准的JSON格式输出
             result_data = {
