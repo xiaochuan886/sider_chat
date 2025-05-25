@@ -6,13 +6,13 @@
 
 ## Description
 
-Sider AI Chat Plugin 是一个强大的AI聊天工具插件，为Dify平台提供流式AI对话功能。该插件支持多种主流AI模型，包括GPT、Claude、Gemini等，并具备上下文管理、流式响应等高级功能。
+Sider AI Chat Plugin 是一个强大的AI聊天工具插件，基于sider_ai_api开源项目代码，调用sider.ai的Python API库，提供了在不能访问ChatGPT等国外AI平台的情况下，调用ChatGPT、Gemini、Claude、llama，乃至o1等国外大模型的完整解决方案，为Dify平台提供流式AI对话功能。具备上下文管理、流式响应等功能。
 
 ## Features
 
 ### 🤖 多模型支持
 - **GPT系列**: GPT-4.1, GPT-4.1 Mini
-- **Claude系列**: Claude 4 Sonnet, Claude 4 Opus, Claude 3.5 Haiku
+- **Claude系列**: Claude 4 Sonnet, Claude 4 Opus
 - **Gemini系列**: Gemini 2.5 Flash, Gemini 2.5 Pro
 - **O系列**: O3, O4 Mini
 - **DeepSeek系列**: DeepSeek Chat, DeepSeek Reasoner, DeepSeek R1 Distill Llama 70B
@@ -33,8 +33,9 @@ Sider AI Chat Plugin 是一个强大的AI聊天工具插件，为Dify平台提�
 
 ### 1. 获取认证信息
 在使用插件前，您需要从 [sider.ai](https://sider.ai) 获取以下认证信息：
-- **Sider Token**: 从账户设置中获取
+- **Sider Token**: 从浏览器开发者工具中获取（登录状态下）
 - **Sider Cookie**: 从浏览器开发者工具中获取（登录状态下）
+token可以在浏览器的设置或者开发者工具中查看。对于Edge，cookie和token可以在edge://settings/cookies/detail?site=sider.ai中查看
 
 ### 2. 安装插件
 1. 下载 `sider_chat.difypkg` 插件包
