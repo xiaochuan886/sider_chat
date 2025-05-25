@@ -87,11 +87,9 @@ class SiderChatTool(Tool):
                 # 流式处理响应
                 for chunk in chat_generator:
                     if chunk:
-                        # 替换思考模式标签以符合Dify的展示要求
-                        processed_chunk = chunk.replace("Thinking", "think").replace("</Thinking>", "</think>")
-                        accumulated_response += processed_chunk
+                        accumulated_response += chunk
                         # 发送流式文本消息
-                        yield self.create_text_message(processed_chunk)
+                        yield self.create_text_message(chunk)
                 
                 # 获取最终响应对象
                 final_response = next(chat_generator, None)
