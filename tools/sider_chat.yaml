@@ -15,6 +15,38 @@ description:
   llm: A tool for AI chat with streaming responses and context management. Input a prompt message and optionally a context_id for conversation continuity. Returns AI response and updated context_id.
 
 parameters:
+  - name: sider_token
+    type: secret-input
+    required: true
+    label:
+      en_US: Sider Token
+      zh_Hans: Sider 令牌
+      pt_BR: Token Sider
+      ja_JP: Sider トークン
+    human_description:
+      en_US: Your Sider authentication token from sider.ai account settings
+      zh_Hans: 从 sider.ai 账户设置中获取的 Sider 认证令牌
+      pt_BR: Seu token de autenticação Sider das configurações da conta sider.ai
+      ja_JP: sider.ai のアカウント設定からの Sider 認証トークン
+    llm_description: Sider authentication token required for API access
+    form: llm
+
+  - name: sider_cookie
+    type: secret-input
+    required: true
+    label:
+      en_US: Sider Cookie
+      zh_Hans: Sider Cookie
+      pt_BR: Cookie Sider
+      ja_JP: Sider Cookie
+    human_description:
+      en_US: Your Sider session cookie from browser developer tools when logged into sider.ai
+      zh_Hans: 登录 sider.ai 后从浏览器开发者工具中获取的 Sider 会话 cookie
+      pt_BR: Seu cookie de sessão Sider das ferramentas de desenvolvedor do navegador quando logado em sider.ai
+      ja_JP: sider.ai にログインした状態でブラウザの開発者ツールからの Sider セッション cookie
+    llm_description: Sider session cookie required for API authentication
+    form: llm
+
   - name: prompt
     type: string
     required: true
@@ -45,7 +77,7 @@ parameters:
       pt_BR: ID de contexto opcional para continuidade da conversa. Deixe vazio para iniciar uma nova conversa.
       ja_JP: 会話の継続性のためのオプションのコンテキストID。新しい会話を開始するには空のままにしてください。
     llm_description: Optional context ID to maintain conversation history. Use the context_id from previous responses to continue the conversation.
-    form: form
+    form: llm
     default: ""
 
   - name: model

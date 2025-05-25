@@ -123,6 +123,12 @@ A: 请检查网络连接，确认Sider服务可用，并查看插件日志获取
 git clone https://github.com/xiaochuan886/sider_chat.git
 cd sider_chat
 
+# 创建虚拟环境
+python -m venv venv
+
+# 激活虚拟环境（mac/lunix）
+source venv/bin/activate
+
 # 安装依赖
 pip install -r requirements.txt
 

@@ -3,27 +3,11 @@ Sider AI API核心逻辑
 复用现有项目的API调用、错误处理和重试机制
 """
 import logging
-import sys
-import os
 from typing import Generator, Optional, Dict, Any
 from dataclasses import dataclass
 
-# 添加项目根目录到Python路径，以便导入现有模块
-current_dir = os.path.dirname(os.path.abspath(__file__))
-project_root = os.path.dirname(os.path.dirname(current_dir))
-sys.path.insert(0, project_root)
-
-try:
-    # 导入现有项目的核心模块
-    from sider_ai_api import Session
-except ImportError:
-    # 如果无法导入，尝试从sider-ai-api-main目录导入
-    sider_api_path = os.path.join(project_root, 'sider-ai-api-main')
-    if os.path.exists(sider_api_path):
-        sys.path.insert(0, sider_api_path)
-        from sider_ai_api import Session
-    else:
-        raise ImportError("无法找到sider_ai_api模块，请确保sider-ai-api-main目录存在")
+# 导入内部的Session实现
+from .sider_session import Session
 
 logger = logging.getLogger(__name__)
 

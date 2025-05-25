@@ -42,13 +42,12 @@ class SiderChatTool(Tool):
                 yield self.create_text_message("错误：prompt参数不能为空")
                 return
             
-            # 获取凭据
-            credentials = self.runtime.credentials
-            token = credentials.get("sider_token")
-            cookie = credentials.get("sider_cookie")
+            # 从工具参数获取认证信息
+            token = tool_parameters.get("sider_token")
+            cookie = tool_parameters.get("sider_cookie")
             
             if not token or not cookie:
-                yield self.create_text_message("错误：缺少Sider认证凭据")
+                yield self.create_text_message("错误：缺少Sider认证信息（token和cookie）")
                 return
             
             # 创建API客户端
