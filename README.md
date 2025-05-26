@@ -18,7 +18,7 @@ Sider AI Chat Plugin 是一个强大的AI聊天工具插件，基于sider_ai_api
 - **DeepSeek系列**: DeepSeek Chat, DeepSeek Reasoner, DeepSeek R1 Distill Llama 70B
 
 ### 💬 智能对话功能
-- **流式响应**: 实时显示AI生成的内容
+- **流式响应**: 实时显示AI生成的内容（可手动关闭）
 - **上下文管理**: 支持多轮对话，保持对话连续性
 - **思考模式**: 启用AI深度思考模式，获得更详细的推理过程
 - **多语言支持**: 支持中文、英文、日文等多种语言输出

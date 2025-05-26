@@ -34,6 +34,7 @@ class SiderChatTool(Tool):
             model = tool_parameters.get("model", "sider")
             output_lang = tool_parameters.get("output_lang", "auto")
             thinking_mode = tool_parameters.get("thinking_mode", False)
+            streaming = tool_parameters.get("streaming", True)
             data_analysis = tool_parameters.get("data_analysis", True)
             search = tool_parameters.get("search", False)
             
@@ -81,15 +82,16 @@ class SiderChatTool(Tool):
             final_context_id = ""
             
             # 获取聊天响应生成器
-            chat_generator = client.chat(chat_request)
+            chat_generator = client.chat(chat_request, streaming=streaming)
             
             try:
                 # 流式处理响应
                 for chunk in chat_generator:
                     if chunk:
                         accumulated_response += chunk
-                        # 发送流式文本消息
-                        yield self.create_text_message(chunk)
+                        # 根据streaming参数决定是否发送流式文本消息
+                        if streaming:
+                            yield self.create_text_message(chunk)
                 
                 # 获取最终响应对象
                 final_response = next(chat_generator, None)
@@ -110,6 +112,10 @@ class SiderChatTool(Tool):
                 # 生成器正常结束
                 final_context_id = client.get_last_context_id()
             
+            # 如果没有启用流式输出，在这里一次性输出完整响应
+            if not streaming and accumulated_response:
+                yield self.create_text_message(accumulated_response)
+            
             # 发送完成提示
             yield self.create_text_message(f"\n\n")
             
@@ -123,6 +129,7 @@ class SiderChatTool(Tool):
                 "response_length": len(accumulated_response),
                 "output_lang": output_lang,
                 "thinking_mode": thinking_mode,
+                "streaming": streaming,
                 "data_analysis": data_analysis,
                 "search": search
             }

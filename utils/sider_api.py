@@ -100,12 +100,13 @@ class SiderAPIClient:
         ]
         return any(pattern in chunk for pattern in error_patterns)
     
-    def chat(self, request: ChatRequest) -> Generator[str, None, ChatResponse]:
+    def chat(self, request: ChatRequest, streaming: bool = True) -> Generator[str, None, ChatResponse]:
         """
         执行聊天请求
         
         Args:
             request: 聊天请求对象
+            streaming: 是否启用流式输出
             
         Yields:
             str: 响应文本块
@@ -122,7 +123,7 @@ class SiderAPIClient:
             api_params = {
                 'prompt': request.prompt,
                 'model': request.model,
-                'stream': True,  # 始终使用流式输出
+                'stream': streaming,  # 根据参数决定是否使用流式输出
                 'output_lang': request.options.output_lang,
                 'thinking_mode': request.options.thinking_mode,
                 'data_analysis': request.options.data_analysis,
@@ -131,42 +132,80 @@ class SiderAPIClient:
                 'artifact': request.options.artifact
             }
             
-            logger.info(f"调用Sider API: model={request.model}, prompt长度={len(request.prompt)}, context_id='{session.context_id}'")
+            logger.info(f"调用Sider API: model={request.model}, prompt长度={len(request.prompt)}, context_id='{session.context_id}', streaming={streaming}")
             
             # 调用API并生成响应
             response_chunks = []
             error_detected = False
             
-            for chunk in session.chat(**api_params):
-                # 检查是否为错误消息
-                if self._is_error_message(chunk):
-                    logger.warning(f"检测到错误消息: {chunk}")
-                    error_detected = True
-                    
-                    # 如果是对话ID错误，创建新会话并重试
-                    if "invalid conversation id" in chunk or "Code: 605" in chunk:
-                        logger.info("检测到无效对话ID，创建新会话并重试...")
-                        # 创建新的会话实例，开始新对话
-                        session = self._create_session("")
-                        self._last_session = session
+            # 如果是非流式模式，先收集所有响应
+            if not streaming:
+                for chunk in session.chat(**api_params):
+                    # 检查是否为错误消息
+                    if self._is_error_message(chunk):
+                        logger.warning(f"检测到错误消息: {chunk}")
+                        error_detected = True
                         
-                        # 重新调用API
-                        logger.info("重新调用Sider API...")
-                        for retry_chunk in session.chat(**api_params):
-                            if not self._is_error_message(retry_chunk):
-                                response_chunks.append(retry_chunk)
-                                yield retry_chunk
-                            else:
-                                logger.error(f"重试后仍然出现错误: {retry_chunk}")
-                                raise Exception(f"Sider API错误: {retry_chunk}")
-                        break
+                        # 如果是对话ID错误，创建新会话并重试
+                        if "invalid conversation id" in chunk or "Code: 605" in chunk:
+                            logger.info("检测到无效对话ID，创建新会话并重试...")
+                            # 创建新的会话实例，开始新对话
+                            session = self._create_session("")
+                            self._last_session = session
+                            
+                            # 重新调用API
+                            logger.info("重新调用Sider API...")
+                            response_chunks = []  # 清空之前的响应
+                            for retry_chunk in session.chat(**api_params):
+                                if not self._is_error_message(retry_chunk):
+                                    response_chunks.append(retry_chunk)
+                                else:
+                                    logger.error(f"重试后仍然出现错误: {retry_chunk}")
+                                    raise Exception(f"Sider API错误: {retry_chunk}")
+                            break
+                        else:
+                            # 其他错误直接抛出异常
+                            raise Exception(f"Sider API错误: {chunk}")
                     else:
-                        # 其他错误直接抛出异常
-                        raise Exception(f"Sider API错误: {chunk}")
-                else:
-                    # 正常的响应内容
-                    response_chunks.append(chunk)
-                    yield chunk
+                        # 正常的响应内容
+                        response_chunks.append(chunk)
+                
+                # 非流式模式：一次性yield完整响应
+                if response_chunks:
+                    full_response = "".join(response_chunks)
+                    yield full_response
+            else:
+                # 流式模式：逐块yield响应
+                for chunk in session.chat(**api_params):
+                    # 检查是否为错误消息
+                    if self._is_error_message(chunk):
+                        logger.warning(f"检测到错误消息: {chunk}")
+                        error_detected = True
+                        
+                        # 如果是对话ID错误，创建新会话并重试
+                        if "invalid conversation id" in chunk or "Code: 605" in chunk:
+                            logger.info("检测到无效对话ID，创建新会话并重试...")
+                            # 创建新的会话实例，开始新对话
+                            session = self._create_session("")
+                            self._last_session = session
+                            
+                            # 重新调用API
+                            logger.info("重新调用Sider API...")
+                            for retry_chunk in session.chat(**api_params):
+                                if not self._is_error_message(retry_chunk):
+                                    response_chunks.append(retry_chunk)
+                                    yield retry_chunk
+                                else:
+                                    logger.error(f"重试后仍然出现错误: {retry_chunk}")
+                                    raise Exception(f"Sider API错误: {retry_chunk}")
+                            break
+                        else:
+                            # 其他错误直接抛出异常
+                            raise Exception(f"Sider API错误: {chunk}")
+                    else:
+                        # 正常的响应内容
+                        response_chunks.append(chunk)
+                        yield chunk
             
             if not response_chunks and not error_detected:
                 raise Exception("未收到任何响应内容")

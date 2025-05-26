@@ -270,6 +270,23 @@ parameters:
     form: form
     default: false
 
+  - name: streaming
+    type: boolean
+    required: false
+    label:
+      en_US: Streaming Output
+      zh_Hans: 流式输出
+      pt_BR: Saída em Streaming
+      ja_JP: ストリーミング出力
+    human_description:
+      en_US: Enable streaming output for real-time response display
+      zh_Hans: 启用流式输出以实时显示响应
+      pt_BR: Ativar saída em streaming para exibição de resposta em tempo real
+      ja_JP: リアルタイム応答表示のためのストリーミング出力を有効にする
+    llm_description: Whether to enable streaming output for real-time response display
+    form: form
+    default: true
+
   # - name: data_analysis
   #   type: boolean
   #   required: false
@@ -353,6 +370,14 @@ outputs:
       zh_Hans: AI响应的长度
       pt_BR: Comprimento da resposta da IA
       ja_JP: AI応答の長さ
+
+  - name: streaming
+    type: boolean
+    description:
+      en_US: Whether streaming output was enabled
+      zh_Hans: 是否启用了流式输出
+      pt_BR: Se a saída em streaming foi ativada
+      ja_JP: ストリーミング出力が有効だったかどうか
 
 extra:
   python:
