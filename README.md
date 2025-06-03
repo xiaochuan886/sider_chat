@@ -1,164 +1,166 @@
 # Sider AI Chat Plugin
 
-**Author:** xiaochuan886
-**Version:** 0.0.1
-**Type:** Tool Plugin  
+**Author:** xiaochuan886 
+**Version:** 0.0.1 
+**Type:** Tool Plugin
 
 ## Description
 
-Sider AI Chat Plugin 是一个强大的AI聊天工具插件，基于sider_ai_api开源项目代码，调用sider.ai的Python API库，提供了在不能访问ChatGPT等国外AI平台的情况下，调用ChatGPT、Gemini、Claude、llama，乃至o1等国外大模型的完整解决方案，为Dify平台提供流式AI对话功能。具备上下文管理、流式响应等功能。
+Sider AI Chat Plugin is a powerful AI chat tool plugin based on the sider_ai_api open-source project code, calling the Sider.ai Python API library. It provides a comprehensive solution for accessing ChatGPT, Gemini, Claude, Llama, and even O1 foreign large language models when unable to access international AI platforms like ChatGPT. It offers streaming AI dialogue functionality for the Dify platform, with features like context management and streaming responses.
 
 ## Features
 
-### 🤖 多模型支持
-- **GPT系列**: GPT-4.1, GPT-4.1 Mini
-- **Claude系列**: Claude 4 Sonnet, Claude 4 Opus
-- **Gemini系列**: Gemini 2.5 Flash, Gemini 2.5 Pro
-- **O系列**: O3, O4 Mini
-- **DeepSeek系列**: DeepSeek Chat, DeepSeek Reasoner, DeepSeek R1 Distill Llama 70B
+### 🤖 Multi-Model Support
+- **GPT Series:** 
+  - GPT-4.1
+  - GPT-4.1 Mini
+- **Claude Series:**
+  - Claude 4 Sonnet
+  - Claude 4 Opus
+- **Gemini Series:**
+  - Gemini 2.5 Flash
+  - Gemini 2.5 Pro
+- **O Series:**
+  - O3
+  - O4 Mini
+- **DeepSeek Series:**
+  - DeepSeek Chat
+  - DeepSeek Reasoner
+  - DeepSeek R1 Distill Llama 70B
 
-### 💬 智能对话功能
-- **流式响应**: 实时显示AI生成的内容（可手动关闭）
-- **上下文管理**: 支持多轮对话，保持对话连续性
-- **思考模式**: 启用AI深度思考模式，获得更详细的推理过程
-- **多语言支持**: 支持中文、英文、日文等多种语言输出
+### 💬 Intelligent Dialogue Capabilities
+- **Streaming Response:** Real-time display of AI-generated content (can be manually disabled)
+- **Context Management:** Supports multi-turn conversations, maintaining dialogue continuity
+- **Thinking Mode:** Enable AI deep thinking mode to obtain more detailed reasoning processes
+- **Multi-Language Support:** Supports output in multiple languages including Chinese, English, Japanese, etc.
 
-### 🔧 高级功能
-- **数据分析**: 内置数据分析能力
-- **网络搜索**: 可选择启用网络搜索获取最新信息
-- **错误处理**: 完善的错误处理和重试机制
-- **安全认证**: 支持Token和Cookie双重认证
+### 🔧 Advanced Features
+- **Data Analysis:** Built-in data analysis capabilities
+- **Web Search:** Optional web search to obtain the latest information
+- **Error Handling:** Comprehensive error handling and retry mechanism
+- **Secure Authentication:** Supports dual authentication with Token and Cookie
 
 ## Installation
 
-### 1. 获取认证信息
-在使用插件前，您需要从 [sider.ai](https://sider.ai) 获取以下认证信息：
-- **Sider Token**: 从浏览器开发者工具中获取（登录状态下）
-- **Sider Cookie**: 从浏览器开发者工具中获取（登录状态下）
-token可以在浏览器的设置或者开发者工具中查看。对于Edge，cookie和token可以在edge://settings/cookies/detail?site=sider.ai中查看
+### 1. Obtain Authentication Information
+Before using the plugin, you need to obtain the following authentication information from sider.ai:
+- **Sider Token:** Retrieved from browser developer tools (while logged in)
+- **Sider Cookie:** Retrieved from browser developer tools (while logged in)
 
-### 2. 安装插件
-1. 下载 `sider_chat.difypkg` 插件包
-2. 在Dify管理界面进入"插件管理"页面
-3. 点击"上传插件"并选择插件包文件
-4. 配置认证信息（Sider Token 和 Sider Cookie）
+> **Note:** Token can be viewed in browser settings or developer tools. For Edge, cookies and tokens can be viewed at `edge://settings/cookies/detail?site=sider.ai`
 
-### 3. 使用插件
-在Dify应用中添加"Sider AI Chat"工具节点，配置以下参数：
-- **Sider 令牌** (必需): Sider Token
-- **Sider Cookie** (必需): Sider Cookie
-- **prompt** (必需): 发送给AI的消息或问题
-- **context_id** (可选): 用于保持对话连续性的上下文ID（可以从上一个对话中获取）
-- **model** (可选): 选择使用的AI模型，默认为"sider"
-- **output_lang** (可选): 输出语言偏好，默认为"auto"
-- **thinking_mode** (可选): 是否启用思考模式，默认为false
-- **data_analysis** (可选): 是否启用数据分析，默认为true(暂时无法使用)
-- **search** (可选): 是否启用网络搜索，默认为false
+### 2. Install Plugin
+1. Download `sider_chat.difypkg` plugin package
+2. Go to the "Plugin Management" page in the Dify management interface
+3. Click "Upload Plugin" and select the plugin package file
+4. Configure authentication information (Sider Token and Sider Cookie)
+
+### 3. Use Plugin
+Add "Sider AI Chat" tool node in Dify application, configure the following parameters:
+
+| Parameter | Type | Description | Default |
+|-----------|------|-------------|---------|
+| Sider Token | Required | Sider Token | - |
+| Sider Cookie | Required | Sider Cookie | - |
+| prompt | Required | Message or question sent to AI | - |
+| context_id | Optional | Context ID for maintaining conversation continuity | - |
+| model | Optional | Select AI model | "sider" |
+| output_lang | Optional | Output language preference | "auto" |
+| thinking_mode | Optional | Whether to enable thinking mode | false |
+| data_analysis | Optional | Whether to enable data analysis | true (currently unavailable) |
+| search | Optional | Whether to enable web search | false |
 
 ## Usage Examples
 
-### 基础对话
-```yaml
-prompt: "请介绍一下人工智能的发展历史"
-model: "gpt-4.1"
-output_lang: "zh-CN"
-```
+### Basic Conversation
+- **Prompt:** "Please introduce the development history of artificial intelligence"
+- **Model:** "gpt-4.1"
+- **Output Language:** "zh-CN"
 
-### 持续对话
-```yaml
-prompt: "那么AI在未来会如何发展？"
-context_id: "previous_conversation_context_id"
-model: "claude-4-sonnet"
-thinking_mode: true
-```
-
-
+### Continuous Conversation
+- **Prompt:** "How will AI develop in the future?"
+- **Context ID:** "previous_conversation_context_id"
+- **Model:** "claude-4-sonnet"
+- **Thinking Mode:** true
 
 ## Output Variables
+The plugin will return the following variables:
 
-插件执行后会返回以下变量，可在后续节点中使用：
-
-- **context_id**: 新的上下文ID，用于继续对话
-- **model**: 使用的AI模型名称
-- **response**: AI的完整响应内容
-- **success**: 执行是否成功
-- **prompt_length**: 输入提示词长度
-- **response_length**: 响应内容长度
+| Variable | Description |
+|----------|-------------|
+| context_id | New context ID for continuing the conversation |
+| model | Name of the AI model used |
+| response | Complete AI response content |
+| success | Whether execution was successful |
+| prompt_length | Input prompt length |
+| response_length | Response content length |
 
 ## Configuration
 
-### 环境变量
-如需本地调试，请配置以下环境变量：
-```bash
+### Environment Variables
+For local debugging, configure:
+```
 DIFY_API_HOST=https://your-dify-host.com
 DIFY_API_KEY=your-api-key
 ```
 
-### 认证配置
-在Dify插件管理界面配置：
-- **Sider Token**: 您的Sider API令牌
-- **Sider Cookie**: 您的Sider会话Cookie
+### Authentication Configuration
+Configure in the Dify plugin management interface:
+- **Sider Token:** Your Sider API token
+- **Sider Cookie:** Your Sider session cookie
 
 ## Troubleshooting
 
-### 常见问题
+### Common Issues
 
-**Q: 插件安装失败，提示签名验证错误？**  
-A: 请确保manifest.yaml和provider配置中的author字段设置为您的GitHub ID，或在Dify的.env文件中添加 `FORCE_VERIFYING_SIGNATURE=false`
+1. **Q: Plugin installation fails with signature verification error?**
+   - **A:** Ensure that the author field in `manifest.yaml` and provider configuration is set to your GitHub ID, or add `FORCE_VERIFYING_SIGNATURE=false` in Dify's `.env` file
 
-**Q: 认证失败？**  
-A: 请检查Sider Token和Cookie是否正确，确保在sider.ai网站上处于登录状态
+2. **Q: Authentication failure?**
+   - **A:** Check if Sider Token and Cookie are correct, ensure you are logged in on the sider.ai website
 
-**Q: 响应为空或出错？**  
-A: 请检查网络连接，确认Sider服务可用，并查看插件日志获取详细错误信息
+3. **Q: Empty or error response?**
+   - **A:** Check network connection, confirm Sider service availability, and view plugin logs for detailed error information
 
 ## Development
 
-### 本地开发
+### Local Development
 ```bash
-# 克隆项目
+# Clone project
 git clone https://github.com/xiaochuan886/sider_chat.git
 cd sider_chat
 
-# 创建虚拟环境
+# Create virtual environment
 python -m venv venv
 
-# 激活虚拟环境（mac/lunix）
+# Activate virtual environment (mac/linux)
 source venv/bin/activate
 
-# 安装依赖
+# Install dependencies
 pip install -r requirements.txt
 
-# 配置环境变量
+# Configure environment variables
 cp .env.example .env
-# 编辑.env文件填入配置
+# Edit .env file to fill in configuration
 
-# 启动调试
+# Start debugging
 python -m main
 ```
 
-### 打包插件
+### Package Plugin
 ```bash
 dify plugin package ./sider_chat
 ```
 
 ## License
-
-本项目采用 MIT 许可证。详见 [LICENSE](LICENSE) 文件。
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ## Contributing
-
-欢迎提交Issue和Pull Request来改进这个插件！
+Welcome to submit Issues and Pull Requests to improve this plugin!
 
 ## Support
+For questions or suggestions, please contact via:
+- **GitHub Issues:** https://github.com/xiaochuan886/sider_chat/issues
+- **Email:** Contact through GitHub
 
-如有问题或建议，请通过以下方式联系：
-- GitHub Issues: [https://github.com/xiaochuan886/sider_chat/issues](https://github.com/xiaochuan886/sider_chat/issues)
-- Email: 通过GitHub联系
-
----
-
-**注意**: 使用本插件需要有效的Sider AI账户和相应的API访问权限。请遵守Sider AI的服务条款和使用政策。
-
-
-
+> **Note:** Using this plugin requires a valid Sider AI account and corresponding API access rights. Please comply with Sider AI's terms of service and usage policies.
